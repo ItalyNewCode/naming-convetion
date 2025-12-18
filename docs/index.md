@@ -1,6 +1,8 @@
 # WaveMaker Naming Conventions
 
-Standard ufficiale per:
-- Database
-- Java
-- REST API
+## Sezioni
+
+- [Database](database.md)
+- [Java](java.md)
+- [REST API](rest.md)
+- [Pluralizzazione](pluralization.md)
