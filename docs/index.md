@@ -3,7 +3,7 @@
 ## Sezioni
 
 - [Database](database.md)
-- [Java](java.md)
+<!-- [Java](java.md) -->
 - [REST API](rest.md)
-- [Pluralizzazione](pluralization.md)
+<!-- [Pluralizzazione](pluralization.md) -->
 
