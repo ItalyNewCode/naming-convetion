@@ -1,6 +1,6 @@
 # REST Naming Conventions e Mapping WaveMaker
 
-Questa guida descrive come WaveMaker costruisce nomi di metodi Java e API REST, con focus su booleani, mapping DB → Java → REST, e convenzioni CRUD.
+Questa guida descrive come WaveMaker costruisce nomi di metodi Java e API REST,  mapping DB → Java → REST, e convenzioni CRUD.
 
 ---
 
@@ -54,7 +54,7 @@ Le convenzioni derivano principalmente da:
 * NON usare `getIsXxx()`
 * Fondamentale per compatibilità con Jackson, Spring, Hibernate
 
-### JSON generato
+### JSON generato ( vedi anche Jackson @nnotation)
 
 ```java
 @Column(name = "active")
@@ -100,11 +100,17 @@ WaveMaker mappa HTTP → Java senza esporre i nomi dei metodi Java nel path REST
 ## Query automatiche (Spring Data style)
 
 * Esempio DB: `active BOOLEAN`, `created_at TIMESTAMP`
-* Repository generato:
+* Repository generato (Service e Controller):
 
 ```java
 List<Customer> findByActive(Boolean active);
+List<AwsCostEntries> findByMultipleIds(List<Integer> awscostentriesIds, boolean orderedReturn);
 List<Customer> findByActiveAndCreatedAtAfter(Boolean active, LocalDateTime date);
+void delete(AwsCostEntries awsCostEntries);
+AwsCostEntries delete(Integer awscostentriesId);
+Page<AwsCostEntries> findAll(String query, Pageable pageable);
+Downloadable export(ExportType exportType, String query, Pageable pageable);
+Page<Map<String, Object>> getAggregatedValues(AggregationInfo aggregationInfo, Pageable pageable);
 ```
 
 * REST endpoint:
