@@ -124,6 +124,8 @@ idx_<table>_<column1>[_column2]
   * `modification_timestamp`
   * `deletion_timestamp` (per soft delete)
 
+attenzione ai contensti cloud in cui la timezone è UTC
+
 ---
 
 ## 8. Tabelle di relazione N–N
