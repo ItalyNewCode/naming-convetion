@@ -3,7 +3,7 @@ title: Home
 nav_order: 1
 ---
 
-# Naming Conventions — Enterprise Community
+# Naming Conventions —  Community
 
 Guida alle convenzioni tecniche per lo sviluppo di applicazioni enterprise.
 Alcuni documenti sono specifici per WaveMaker; altri si applicano a qualsiasi stack.
