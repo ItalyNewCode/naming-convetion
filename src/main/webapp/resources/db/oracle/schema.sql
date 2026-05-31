@@ -1,0 +1,16 @@
+-- ============================================================
+-- Progetto:   <NomeApp>
+-- Database:   Oracle Database <versione>
+-- Schema:     <NOME_SCHEMA>
+-- Creato:     <YYYY-MM-DD>
+-- Aggiornato: <YYYY-MM-DD>
+-- ============================================================
+-- Istruzioni:
+--   Sostituire i placeholder <...> con i valori del progetto.
+--   Il naming degli oggetti deve rispettare docs/database.md.
+--   In Oracle lo schema coincide con l'utente DB.
+-- ============================================================
+
+-- Inserire qui le istruzioni CREATE TABLE, CREATE SEQUENCE,
+-- CREATE INDEX, CREATE VIEW, CREATE PROCEDURE, CREATE FUNCTION
+-- e CREATE TRIGGER del progetto.
