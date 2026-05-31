@@ -1,3 +1,9 @@
+---
+title: Schema Database
+parent: WaveMaker
+nav_order: 5
+---
+
 # Schema del Database nel Repository
 
 Ogni progetto WaveMaker deve includere nel repository lo schema SQL del database collegato. Lo schema è la fonte di verità della struttura dati: permette di ricreare il database da zero, documentare l'evoluzione del modello e garantire la riproducibilità dell'ambiente.

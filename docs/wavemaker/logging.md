@@ -1,3 +1,9 @@
+---
+title: Logging
+parent: WaveMaker
+nav_order: 6
+---
+
 # Logging — Convenzioni Log4j2 WaveMaker
 
 WaveMaker configura il logging tramite Log4j2. Il file di configurazione si trova in:

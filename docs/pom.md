@@ -1,3 +1,9 @@
+---
+title: pom.xml
+parent: WaveMaker
+nav_order: 11
+---
+
 # Convenzioni pom.xml — WaveMaker
 
 Il file `pom.xml` è il cuore della build Maven dell'applicazione. Una gestione errata delle versioni delle dipendenze può causare build non riproducibili, conflitti a runtime e vulnerabilità di sicurezza. Tutti gli autori devono rispettare le regole seguenti.

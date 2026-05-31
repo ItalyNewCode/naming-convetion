@@ -1,3 +1,8 @@
+---
+title: SSL/TLS
+nav_order: 3
+---
+
 # SSL/TLS Conventions
 
 Ogni applicazione enterprise deve essere sempre raggiungibile esclusivamente via HTTPS. Il traffico HTTP deve essere rediretto automaticamente a HTTPS.

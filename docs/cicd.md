@@ -1,3 +1,8 @@
+---
+title: Continuous Delivery
+nav_order: 7
+---
+
 # Continuous Delivery — GitHub Actions + AWS Elastic Beanstalk
 
 Ogni applicazione WaveMaker enterprise deve adottare una pipeline di Continuous Delivery automatizzata. Il deploy su AWS Elastic Beanstalk avviene tramite una **GitHub Action riutilizzabile** mantenuta dalla community.

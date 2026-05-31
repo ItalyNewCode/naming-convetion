@@ -1,3 +1,8 @@
+---
+title: SBOM
+nav_order: 6
+---
+
 # SBOM — Software Bill of Materials
 
 Una SBOM è l'elenco completo e formale di tutti i componenti software inclusi in un'applicazione: dipendenze dirette, dipendenze transitive, versioni, licenze e hash. È l'equivalente di una "lista ingredienti" del software.

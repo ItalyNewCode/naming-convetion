@@ -1,3 +1,9 @@
+---
+title: Convenzioni Frontend
+parent: WaveMaker
+nav_order: 3
+---
+
 # Convenzioni Frontend — WaveMaker
 
 Questa guida definisce le regole obbligatorie per la costruzione delle pagine e dei widget nelle applicazioni WaveMaker enterprise.

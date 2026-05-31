@@ -1,3 +1,9 @@
+---
+title: Release Notes e Compatibilità
+parent: WaveMaker
+nav_order: 1
+---
+
 # WaveMaker — Release Notes e Matrici di Compatibilità
 
 Gli autori di applicazioni WaveMaker **devono attenersi alle matrici di versionamento e compatibilità** pubblicate ufficialmente dalla documentazione WaveMaker. Non è ammesso usare versioni di runtime, strumenti o dipendenze non allineate alla versione WaveMaker adottata dal progetto.

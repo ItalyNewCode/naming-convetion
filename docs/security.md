@@ -1,3 +1,8 @@
+---
+title: Sicurezza
+nav_order: 4
+---
+
 # Sicurezza — Gestione dei Segreti e Protezione delle Informazioni
 
 La sicurezza non è una funzionalità aggiuntiva: è un requisito di base di ogni applicazione enterprise. Questo documento definisce le regole obbligatorie per la gestione di credenziali, segreti e informazioni sensibili.

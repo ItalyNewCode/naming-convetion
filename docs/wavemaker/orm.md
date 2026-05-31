@@ -1,3 +1,9 @@
+---
+title: ORM — Entity, DAO, DTO
+parent: WaveMaker
+nav_order: 4
+---
+
 # ORM — Configurazione Entity, DAO e DTO
 
 WaveMaker genera automaticamente le classi Java (POJO/Entity, DAO, Service) a partire dallo schema del database. La generazione automatica non esonera l'autore dalla responsabilità di **verificare e configurare correttamente** ogni campo nell'editor ORM, in particolare il `Value Type`, il flag `Updatable` e i `Validators`.
