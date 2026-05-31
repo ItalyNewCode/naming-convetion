@@ -1,6 +1,7 @@
 ---
 title: Continuous Delivery
 nav_order: 7
+render_with_liquid: false
 ---
 
 # Continuous Delivery — GitHub Actions + AWS Elastic Beanstalk
