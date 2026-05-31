@@ -1,3 +1,8 @@
+---
+title: Home
+nav_order: 1
+---
+
 # Naming Conventions — Enterprise Community
 
 Guida alle convenzioni tecniche per lo sviluppo di applicazioni enterprise.

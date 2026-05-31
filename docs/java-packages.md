@@ -1,3 +1,9 @@
+---
+title: Package Java
+parent: WaveMaker
+nav_order: 9
+---
+
 # Struttura dei Package Java — WaveMaker
 
 Questa guida definisce come organizzare cartelle e package Java all'interno di un progetto WaveMaker enterprise. La struttura di riferimento è ricavata da un progetto reale e deve essere rispettata da tutti gli autori.

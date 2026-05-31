@@ -1,3 +1,40 @@
-#theme: jekyll-theme-minimal
-title: WaveMaker Naming Conventions
-description: DB → Java → REST
+title: "Naming Conventions — Enterprise Community"
+description: "Guida alle convenzioni tecniche per lo sviluppo di applicazioni enterprise"
+
+theme: just-the-docs
+
+url: "https://italynewcode.github.io"
+baseurl: "/naming-convetion"
+
+lang: it
+
+search_enabled: true
+search:
+  heading_level: 2
+  previews: 3
+
+nav_sort: order
+heading_anchors: true
+
+footer_content: "Community ItalyNewCode — Contenuto sotto licenza CC BY 4.0"
+
+color_scheme: light
+
+nav_external_links:
+  - title: "Repository GitHub"
+    url: "https://github.com/ItalyNewCode/naming-convetion"
+    hide_icon: false
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: false
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - "*.zip"
+  - node_modules

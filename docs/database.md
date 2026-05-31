@@ -1,3 +1,8 @@
+---
+title: Database
+nav_order: 2
+---
+
 # Database Naming Conventions
 
 Questa guida riassume le convenzioni di naming per tabelle, colonne, chiavi, indici, constraint, stored procedure, function, trigger, views e schemi, utile per mantenere coerenza e leggibilità tra diversi DB.

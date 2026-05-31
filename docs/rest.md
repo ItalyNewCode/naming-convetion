@@ -1,3 +1,9 @@
+---
+title: REST API
+parent: WaveMaker
+nav_order: 10
+---
+
 # REST Naming Conventions e Mapping WaveMaker
 
 Questa guida descrive come WaveMaker costruisce nomi di metodi Java e API REST,  mapping DB → Java → REST, e convenzioni CRUD.

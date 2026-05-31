@@ -1,3 +1,9 @@
+---
+title: POJO e Jackson
+parent: WaveMaker
+nav_order: 8
+---
+
 # POJO e Annotazioni Jackson — WaveMaker
 
 Quando gli autori scrivono classi Java custom (DTO, modelli di integrazione, modelli condivisi), queste devono rispettare le convenzioni Jackson usate da WaveMaker e le specifiche JavaBeans. Una classe mal annotata produce JSON inconsistente, errori di deserializzazione o comportamenti imprevisti con Spring MVC e Hibernate.

@@ -1,3 +1,9 @@
+---
+title: Spring Bean
+parent: WaveMaker
+nav_order: 7
+---
+
 # Spring Bean — Configurazione e Convenzioni
 
 WaveMaker usa Spring come container IoC. La configurazione Spring è distribuita su più file XML con responsabilità distinte. Gli autori devono conoscere questa gerarchia per evitare di modificare file gestiti da WaveMaker Studio e per registrare correttamente i propri bean.

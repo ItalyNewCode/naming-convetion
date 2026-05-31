@@ -1,3 +1,9 @@
+---
+title: UI Templates
+parent: WaveMaker
+nav_order: 2
+---
+
 # UI Templates e Standard Frontend — WaveMaker
 
 Ogni applicazione WaveMaker deve adottare un'interfaccia utente coerente e di qualità professionale. Quando i template Material inclusi nella piattaforma non sono utilizzati, l'autore deve conformarsi agli esempi ufficiali pubblicati nello **WaveMaker Showcase**.
