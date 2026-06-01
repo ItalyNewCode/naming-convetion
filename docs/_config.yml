@@ -33,12 +33,6 @@ relative_links:
   enabled: true
   collections: false
 
-defaults:
-  - scope:
-      path: ""
-    values:
-      render_with_liquid: false
-
 exclude:
   - Gemfile
   - Gemfile.lock
