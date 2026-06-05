@@ -164,10 +164,11 @@ Le credenziali usate dalla pipeline (es. `AWS_ROLE_TO_ASSUME_FOR_DEPLOY`) devono
 
 Regole:
 * Mai inserire credenziali direttamente nel file `.github/workflows/*.yml`
-* Usare sempre `${{ secrets.NOME_SECRET }}` per referenziare i segreti
+* Usare sempre {% raw %}`${{ secrets.NOME_SECRET }}`{% endraw %} per referenziare i segreti
 * Preferire autenticazione OIDC (ruolo IAM temporaneo) a credenziali statiche (vedi [cicd.md](cicd.md))
 * Ruotare i segreti della pipeline almeno ogni 90 giorni
 
+{% raw %}
 ```yaml
 # CORRETTO
 secrets:
@@ -177,6 +178,7 @@ secrets:
 env:
   AWS_SECRET_ACCESS_KEY: "AKIAIOSFODNN7EXAMPLE..."
 ```
+{% endraw %}
 
 ---
 
@@ -318,6 +320,7 @@ Angular (usato da WaveMaker) applica automaticamente l'encoding dell'output nei 
 * **Non renderizzare HTML grezzo** da database o input utente in widget WaveMaker.
 * Usare sempre binding su `label`, `text`, `span` — mai su elementi HTML raw.
 
+{% raw %}
 ```html
 <!-- CORRETTO — Angular escapa automaticamente -->
 <wm-label caption="{{variabile}}"></wm-label>
@@ -325,10 +328,11 @@ Angular (usato da WaveMaker) applica automaticamente l'encoding dell'output nei 
 <!-- VIETATO — bypassa l'encoding -->
 <div [innerHTML]="variabile"></div>
 ```
+{% endraw %}
 
 #### Log Injection
 
-Il pattern Log4j2 configurato da WaveMaker include `%encode{%m}{CRLF}` che previene la manipolazione dei log tramite sequenze di a capo. Non rimuovere questo encoding dal pattern in `log4j2.xml`.
+Il pattern Log4j2 configurato da WaveMaker include {% raw %}`%encode{%m}{CRLF}`{% endraw %} che previene la manipolazione dei log tramite sequenze di a capo. Non rimuovere questo encoding dal pattern in `log4j2.xml`.
 
 Non loggare mai input utente non sanitizzato a livello `INFO` o superiore — vedi [logging.md](wavemaker/logging.md).
 
@@ -584,7 +588,7 @@ In caso di compromissione accertata o sospetta, la rotazione è immediata — no
 ### OWASP — Copertura Completa
 - [ ] **A01** Endpoint protetti da ruoli WaveMaker Security Service — nessun `.permitAll()` non valutato
 - [ ] **A02** TLS abilitato, BCrypt per password utente, nessun MD5/SHA-1
-- [ ] **A03** Query HQL/JPA con parametri named — nessuna concatenazione di stringa; no `[innerHTML]` con dati non sanitizzati; `%encode{%m}{CRLF}` mantenuto in log4j2.xml
+- [ ] **A03** Query HQL/JPA con parametri named — nessuna concatenazione di stringa; no `[innerHTML]` con dati non sanitizzati; {% raw %}`%encode{%m}{CRLF}`{% endraw %} mantenuto in log4j2.xml
 - [ ] **A04** Validazione input lato server per ogni form e API custom
 - [ ] **A05** CORS con `allowedOrigins` espliciti (mai `*`); header HTTP di sicurezza presenti e verificati; stack trace non esposti
 - [ ] **A06** SBOM generata e scansionata; dipendenze con versione esatta nel pom.xml

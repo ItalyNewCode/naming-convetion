@@ -44,6 +44,7 @@ Nel repository dell'applicazione creare il file:
 
 Sostituire ogni occorrenza di `<nome-app>` con il nome effettivo dell'applicazione e adattare regione e versioni degli strumenti.
 
+{% raw %}
 ```yaml
 name: WM-to-Beanstalk
 
@@ -75,6 +76,7 @@ jobs:
       log-group-prefix: '<nome-app>'
       force-root-wm-app-name: true
 ```
+{% endraw %}
 
 > Il file del workflow riutilizzabile da richiamare è `ebt-deployer.yml` — usare sempre questo nome.
 
@@ -225,6 +227,7 @@ Struttura raccomandata:
 
 Esempio con due ambienti nello stesso file:
 
+{% raw %}
 ```yaml
 name: Deploy
 
@@ -259,6 +262,7 @@ jobs:
       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 ```
+{% endraw %}
 
 ---
 
@@ -284,6 +288,7 @@ Quando il deploy **non avviene su cloud** (niente AWS, niente Elastic Beanstalk)
 
 Creare il file `.github/workflows/release.yml`:
 
+{% raw %}
 ```yaml
 name: Build and Release WAR
 
@@ -342,6 +347,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+{% endraw %}
 
 Il `GITHUB_TOKEN` è fornito automaticamente da GitHub — non richiede secret aggiuntivi.
 
@@ -398,6 +404,7 @@ Ogni GitHub Release deve contenere almeno:
 
 Per allegare automaticamente anche la SBOM, aggiungere i file nel parametro `files`:
 
+{% raw %}
 ```yaml
 - name: Create GitHub Release
   uses: softprops/action-gh-release@v2
@@ -414,6 +421,7 @@ Per allegare automaticamente anche la SBOM, aggiungere i file nel parametro `fil
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+{% endraw %}
 
 ---
 
