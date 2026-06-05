@@ -45,7 +45,49 @@ Non modificare il pattern senza una necessità documentata.
 
 ---
 
-## 2. Aggiungere un Logger per Codice Custom
+## 2. Struttura Minima Obbligatoria del log4j2.xml
+
+Il file `src/main/resources/log4j2.xml` deve contenere la struttura seguente. I blocchi contrassegnati come obbligatori non possono essere rimossi.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss,SSS} -%X{X-WM-Request-Track-Id} %t %p [%c] - %m%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+
+        <!-- OBBLIGATORIO: root a INFO -->
+        <Root level="info">
+            <AppenderRef ref="stdout"/>
+        </Root>
+
+        <!-- OBBLIGATORIO: logger di framework — non abbassare questi livelli -->
+        <logger name="org.hibernate"                level="WARN"/>
+        <logger name="org.springframework"          level="WARN"/>
+        <logger name="org.springframework.security" level="WARN"/>
+
+        <!-- OBBLIGATORIO: sezione logger del progetto.
+             Aggiungere qui un <logger> per ogni classe o package custom
+             che richiede un livello diverso da INFO.
+             Esempio:
+             <logger name="com.oneclickapp.nomeapp.NomeServizio" level="DEBUG"/>
+        -->
+
+    </Loggers>
+
+</Configuration>
+```
+
+La sezione **logger del progetto** è il punto di estensione designato per la configurazione per-classe. Senza questa sezione non è possibile variare il livello di log di classi specifiche senza modificare il root logger e inondare i log di tutto il framework.
+
+---
+
+## 3. Aggiungere un Logger per Codice Custom
 
 Ogni classe Java custom che produce log deve dichiarare il proprio logger con il nome della classe stessa:
 
@@ -70,7 +112,7 @@ Non usare `System.out.println` o `e.printStackTrace()` nel codice di produzione.
 
 ---
 
-## 3. Quando Usare Ogni Livello
+## 4. Quando Usare Ogni Livello
 
 | Livello | Quando usarlo | Esempi |
 | ------- | ------------- | ------ |
@@ -118,7 +160,7 @@ logger.info("Login utente: {} password: {}", username, password); // ❌ MAI
 
 ---
 
-## 4. Logger Custom in `log4j2.xml`
+## 5. Logger Custom in `log4j2.xml`
 
 Se una classe custom richiede un livello di log diverso dal root `INFO`, aggiungere un logger specifico nel `log4j2.xml` con il package o la classe esatta:
 
@@ -142,7 +184,7 @@ I logger custom del progetto vanno aggiunti **dopo** i logger di framework, con 
 
 ---
 
-## 5. Logger di Debug per Sviluppo
+## 6. Logger di Debug per Sviluppo
 
 I logger di framework utili durante lo sviluppo (SQL Hibernate, chiamate REST, pool di connessioni) sono già presenti nel `log4j2.xml` come commenti. Abilitarli temporaneamente in locale decommentando la riga, ma **non committarli abilitati**:
 
@@ -157,7 +199,7 @@ Se un logger di debug viene committato abilitato, la pipeline CI/CD deve rilevar
 
 ---
 
-## 6. Cosa Non Loggare Mai
+## 7. Cosa Non Loggare Mai
 
 * **Password, token, API key, secret** — in nessun livello di log
 * **Dati personali (PII)** — nome completo, codice fiscale, email, numero di carta — mai in chiaro nei log
@@ -166,8 +208,9 @@ Se un logger di debug viene committato abilitato, la pipeline CI/CD deve rilevar
 
 ---
 
-## 7. Checklist Logging
+## 8. Checklist Logging
 
+- [ ] Il file `log4j2.xml` contiene la struttura minima obbligatoria: `<Root level="info">`, logger di framework a `WARN`, sezione logger del progetto
 - [ ] Ogni classe custom ha il logger dichiarato come `private static final Logger logger = LogManager.getLogger(<Classe>.class)`
 - [ ] Nessun `System.out.println` o `e.printStackTrace()` nel codice
 - [ ] I livelli `org.hibernate`, `org.springframework`, `org.springframework.security` rimangono a `WARN`

@@ -553,7 +553,54 @@ In particolare è vietato:
 
 ---
 
-## 9. Rotazione dei Segreti
+## 9. Ruoli Applicativi Minimi
+
+Ogni progetto deve definire un insieme minimo di ruoli applicativi sin dalla configurazione iniziale. I tre ruoli elencati di seguito devono essere presenti **sia nel Security Service di WaveMaker sia in Spring Security**.
+
+| Ruolo | Nome in WaveMaker | Autorità Spring Security | Responsabilità |
+| ----- | ----------------- | ------------------------ | -------------- |
+| Amministratore | `admin` | `ROLE_ADMIN` | Gestione del sistema, degli utenti e delle configurazioni — accesso completo. |
+| Manager | `manager` | `ROLE_MANAGER` | Operatività completa: inserimento, modifica e cancellazione dei dati. Nessuna funzione di amministrazione sistema. |
+| Utente | `user` | `ROLE_USER` | Accesso in consultazione e operazioni standard di propria competenza. |
+
+I tre ruoli sono il **minimo obbligatorio**. Il progetto può definire ruoli aggiuntivi in base ai requisiti, ma non può iniziare senza questi tre.
+
+### Configurazione nel Security Service WaveMaker
+
+1. Aprire il **Security Service** del progetto WaveMaker → scheda **Roles**.
+2. Aggiungere i ruoli: `admin`, `manager`, `user` (in minuscolo, senza il prefisso `ROLE_`).
+3. Assegnare i ruoli agli endpoint REST seguendo il principio del minimo privilegio.
+
+### Configurazione in Spring Security (`project-user-spring.xml`)
+
+Dichiarare la gerarchia dei ruoli per evitare l'assegnazione multipla manuale:
+
+```xml
+<!-- project-user-spring.xml -->
+<!-- Gerarchia: admin include manager, manager include user -->
+<bean id="roleHierarchy"
+      class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+    <property name="hierarchy">
+        <value>
+            ROLE_ADMIN > ROLE_MANAGER
+            ROLE_MANAGER > ROLE_USER
+        </value>
+    </property>
+</bean>
+```
+
+Con questa configurazione un utente con ruolo `admin` possiede automaticamente i permessi di `manager` e di `user`.
+
+### Regole di Assegnazione
+
+* API di gestione sistema e utenti → `ROLE_ADMIN`
+* API di inserimento, modifica e cancellazione → almeno `ROLE_MANAGER`
+* API di sola lettura → almeno `ROLE_USER`, salvo endpoint esplicitamente pubblici
+* Ogni deroga va motivata e documentata nel file di configurazione Spring
+
+---
+
+## 10. Rotazione dei Segreti
 
 I segreti non sono statici. Devono essere ruotati periodicamente e immediatamente in caso di compromissione.
 
@@ -569,7 +616,7 @@ In caso di compromissione accertata o sospetta, la rotazione è immediata — no
 
 ---
 
-## 9. Checklist Sicurezza
+## 11. Checklist Sicurezza
 
 ### Segreti e Credenziali
 - [ ] Nessuna password, token o chiave in chiaro nel repository (inclusa la git history)
@@ -584,6 +631,12 @@ In caso di compromissione accertata o sospetta, la rotazione è immediata — no
 - [ ] Messaggi di errore generici, senza dettagli di tabelle, query o path interni
 - [ ] Header `Server`, `X-Powered-By` soppressi o oscurati
 - [ ] Dati sensibili (PII, password) mai presenti nei log (vedi [logging.md](wavemaker/logging.md))
+
+### Ruoli Applicativi
+- [ ] Ruolo `admin` dichiarato nel Security Service WaveMaker e in Spring Security (`ROLE_ADMIN`)
+- [ ] Ruolo `manager` dichiarato nel Security Service WaveMaker e in Spring Security (`ROLE_MANAGER`)
+- [ ] Ruolo `user` dichiarato nel Security Service WaveMaker e in Spring Security (`ROLE_USER`)
+- [ ] Gerarchia ruoli configurata in `project-user-spring.xml` (`ROLE_ADMIN > ROLE_MANAGER > ROLE_USER`)
 
 ### OWASP — Copertura Completa
 - [ ] **A01** Endpoint protetti da ruoli WaveMaker Security Service — nessun `.permitAll()` non valutato

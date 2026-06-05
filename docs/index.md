@@ -27,6 +27,7 @@ Applicabili a qualsiasi tipo di applicazione enterprise.
 
 Strumenti e processi per l'ingresso e la collaborazione nella community.
 
+- [Processo di Fornitura](processo-fornitura.md)
 - [Onboarding — Discovery Survey](community-onboarding.md)
 - [Survey Requisiti di Progetto](project-requirements.md)
 
