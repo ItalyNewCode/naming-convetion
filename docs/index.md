@@ -23,6 +23,15 @@ Applicabili a qualsiasi tipo di applicazione enterprise.
 
 ---
 
+## Community
+
+Strumenti e processi per l'ingresso e la collaborazione nella community.
+
+- [Onboarding — Discovery Survey](community-onboarding.md)
+- [Survey Requisiti di Progetto](project-requirements.md)
+
+---
+
 ## WaveMaker
 
 Specifici per applicazioni sviluppate con la piattaforma WaveMaker.

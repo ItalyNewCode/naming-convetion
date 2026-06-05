@@ -25,49 +25,80 @@ Questa guida riassume le convenzioni di naming per tabelle, colonne, chiavi, ind
 
 ---
 
-## 2. Nomi di Tabelle
+## 2. Prefisso di Progetto
+
+Tabelle, colonne e schemi devono essere preceduti da un prefisso di tre caratteri composto da **lettere e numeri minuscoli**, seguito da underscore:
+
+```
+x0x_
+```
+
+Il prefisso identifica il progetto o il contesto applicativo e si applica a:
+
+* Nomi di tabelle
+* Nomi di colonne
+* Nomi di schema
+
+**Esempi:**
+
+* ✔ `crm_users` (prefisso `crm`)
+* ✔ `c3r_orders` (prefisso `c3r`)
+* ✔ `c3r_order_id` (colonna con prefisso)
+* ✔ Schema: `c3r` (schema prefissato)
+* ❌ `users` (senza prefisso)
+* ❌ `CRM_users` (maiuscolo)
+
+**Motivo:** Evita collisioni di nomi in ambienti multi-tenant o multi-schema e rende immediatamente identificabile l'appartenenza di ogni oggetto.
+
+---
+
+## 3. Nomi di Tabelle
 
 * Sempre al plurale perché le tabelle contengono insiemi.
 
 **Esempi:**
 
-* ✔ `users`
-* ✔ `orders`
-* ✔ `order_items`
+* ✔ `c3r_users`
+* ✔ `c3r_orders`
+* ✔ `c3r_order_items`
 * ❌ `user`
 * ❌ `orderItem`
 
-**Eccezioni:** Tabelle di lookup (es. `status_type`, `country`).
+**Eccezioni:** Tabelle di lookup (es. `c3r_status_type`, `c3r_country`).
 
 ---
 
-## 3. Colonne ID
+## 4. Colonne ID
 
-* Chiave primaria = `<table_name>_id`
-* Evitare generici `id` singoli, soprattutto in join complessi.
+* Chiave primaria = `id` (bigint autoincrementale per le specifiche base)
+* Evitare generici `id` singoli, soprattutto in join complessi; in quel caso preferire `<table_name>_id`.
+
+**Tipo del campo `id`:**
+
+* **Specifiche base:** `id` è un `BIGINT` autoincrementale.
+* **Progetti complessi:** valutare l'adozione di `UUID` al posto del bigint autoincrementale. Questa scelta va vagliata **progetto per progetto** in base a requisiti di scalabilità, distribuzione o interoperabilità.
 
 **Esempi:**
 
-* ✔ `user_id` in `users`
-* ✔ `order_id` in `orders`
-* ✔ `user_id` nella tabella `orders`
-* ✔ `product_id` nella tabella `order_items`
-* ❌ `id` da solo
+* ✔ `id BIGINT AUTO_INCREMENT` in `c3r_users` (spec base)
+* ✔ `id UUID DEFAULT gen_random_uuid()` in `c3r_events` (progetto complesso)
+* ✔ `c3r_user_id` nella tabella `c3r_orders` (foreign key descrittiva)
+* ✔ `c3r_product_id` nella tabella `c3r_order_items`
 
 ---
 
-## 4. Foreign Key
+## 5. Foreign Key
 
 * Usare esattamente il nome della primary key della tabella referenziata.
 
 **Esempi:**
 
-* ✔ `customer_id` → riferimento a `customers.customer_id`
+* ✔ `c3r_customer_id` → riferimento a `c3r_customers.id`
 * ✔ `created_by_user_id` → se il riferimento non è banale
 
 ---
 
-## 5. Constraints e Indici
+## 6. Constraints e Indici
 
 **Primary Key:**
 
@@ -75,7 +106,7 @@ Questa guida riassume le convenzioni di naming per tabelle, colonne, chiavi, ind
 pk_<table>
 ```
 
-Esempio: `pk_users`
+Esempio: `pk_c3r_users`
 
 **Foreign Key:**
 
@@ -83,7 +114,7 @@ Esempio: `pk_users`
 fk_<table>_<column>
 ```
 
-Esempio: `fk_orders_user_id`
+Esempio: `fk_c3r_orders_user_id`
 
 **Unique Constraints:**
 
@@ -105,7 +136,7 @@ idx_<table>_<column1>[_column2]
 
 ---
 
-## 6. Nomi delle Colonne
+## 7. Nomi delle Colonne
 
 * Minuscolo
 * Snake_case
@@ -121,7 +152,7 @@ idx_<table>_<column1>[_column2]
 
 ---
 
-## 7. Timestamp Columns
+## 8. Timestamp Columns
 
 * Standard comune:
 
@@ -133,19 +164,19 @@ attenzione ai contensti cloud in cui la timezone è UTC
 
 ---
 
-## 8. Tabelle di relazione N–N
+## 9. Tabelle di relazione N–N
 
 * Usare nome composto in ordine alfabetico.
 
 **Esempi:**
 
-* ✔ `product_category`
-* ✔ `role_permission`
+* ✔ `c3r_product_category`
+* ✔ `c3r_role_permission`
 * ❌ `category_product` (se invertito senza criterio)
 
 ---
 
-## 9. Stored Procedure, Function, Trigger
+## 10. Stored Procedure, Function, Trigger
 
 **Stored Procedure:**
 
@@ -168,29 +199,29 @@ fn_<nome_logico>
 trg_<table>_<timing>_<event>
 ```
 
-* ✔ `trg_orders_before_insert`
+* ✔ `trg_c3r_orders_before_insert`
 
 ---
 
-## 10. Views
+## 11. Views
 
 * Usare prefisso:
 
   * `v_<nome_view>` oppure `view_<nome_view>`
-* ✔ `v_active_users`
+* ✔ `v_c3r_active_users`
 
 ---
 
-## 11. Schema
+## 12. Schema
 
 * Minuscolo
-* Nomi brevi e chiari
-* ✔ `public`
+* Nomi brevi e chiari, rispettando il formato prefisso `x0x`
+* ✔ `c3r`
 * ✔ `crm`
 * ✔ `analytics`
 
 ---
 
-## 12. Tipi di Campi
+## 13. Tipi di Campi
 
 * Non usare campi `char`, preferire `varchar`.
