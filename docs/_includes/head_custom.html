@@ -1,0 +1,81 @@
+{% if page.has_pdf_export %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+<style>
+  /* ── Survey: pulsante PDF ── */
+  #survey-pdf-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 9999;
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.7rem 1.4rem;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    transition: background 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: inherit;
+    line-height: 1.4;
+  }
+  #survey-pdf-btn:hover  { background: #1557b0; box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+  #survey-pdf-btn:disabled { background: #888; cursor: wait; box-shadow: none; }
+
+  /* ── Survey: campi testo ── */
+  .survey-input {
+    border: none;
+    border-bottom: 1.5px solid #888;
+    background: transparent;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    outline: none;
+    padding: 1px 4px;
+    vertical-align: baseline;
+    min-width: 80px;
+  }
+  .survey-input:focus { border-bottom-color: #1a73e8; }
+
+  /* ── Survey: aree note ── */
+  .survey-notes-wrap { margin: 0.5rem 0 1.25rem 0; }
+  .survey-notes-label {
+    display: block;
+    font-size: 0.78rem;
+    color: #666;
+    margin-bottom: 3px;
+    user-select: none;
+  }
+  .survey-notes-area {
+    display: block;
+    width: 100%;
+    min-height: 58px;
+    padding: 7px 10px;
+    font-family: inherit;
+    font-size: 0.875rem;
+    border: 1px solid #d0d0d0;
+    border-radius: 5px;
+    resize: vertical;
+    color: inherit;
+    background: #f9f9f9;
+    box-sizing: border-box;
+    line-height: 1.5;
+  }
+  .survey-notes-area:focus { border-color: #1a73e8; outline: none; background: #fff; }
+
+  /* ── Checkbox interattiva ── */
+  .page-content input[type="checkbox"] { cursor: pointer; }
+
+  /* ── PDF / Print: nascondi elementi UI ── */
+  @media print {
+    #survey-pdf-btn,
+    .survey-notes-label { display: none !important; }
+    .survey-notes-area { background: #fff !important; border-color: #bbb !important; }
+    .survey-input { border-bottom-color: #555 !important; }
+  }
+</style>
+{% endif %}

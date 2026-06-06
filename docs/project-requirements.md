@@ -1,6 +1,7 @@
 ---
 title: Survey Requisiti di Progetto
 nav_order: 51
+has_pdf_export: true
 ---
 
 # Definizione dei Requisiti di Progetto
@@ -416,3 +417,5 @@ Survey per la raccolta dei requisiti iniziali da sottoporre al cliente finale in
 ---
 
 *Documento per la raccolta dei requisiti in fase di prevendita — da portare alla community e agli autori/PM per la costruzione del blueprint di progetto.*
+
+{% include survey-pdf.html %}

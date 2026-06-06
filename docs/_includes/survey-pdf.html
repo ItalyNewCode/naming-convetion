@@ -1,0 +1,146 @@
+<button id="survey-pdf-btn" onclick="surveyDownloadPDF()">⬇&nbsp; Scarica PDF compilato</button>
+
+<script>
+(function initSurvey() {
+
+  // ── 1. Rendi le checkbox cliccabili ──────────────────────────────────────
+  document.querySelectorAll('input[type="checkbox"]').forEach(function (cb) {
+    cb.removeAttribute('disabled');
+  });
+
+  // ── 2. Converti <code>_____</code> in input di testo ────────────────────
+  document.querySelectorAll('code').forEach(function (el) {
+    if (/^_{3,}$/.test(el.textContent.trim())) {
+      var input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'survey-input';
+      var len = el.textContent.trim().length;
+      input.style.width = Math.min(Math.max(len * 8, 100), 450) + 'px';
+      input.placeholder = '...';
+      el.parentNode.replaceChild(input, el);
+    }
+  });
+
+  // ── 3. Converti nodi di testo ___+ in input (es. "Altro: _____") ─────────
+  function replaceUnderscoresInNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      var text = node.textContent;
+      if (!(/_{3,}/.test(text))) return;
+      var parts = text.split(/(_{3,})/);
+      if (parts.length < 2) return;
+      var frag = document.createDocumentFragment();
+      parts.forEach(function (part) {
+        if (/^_{3,}$/.test(part)) {
+          var input = document.createElement('input');
+          input.type = 'text';
+          input.className = 'survey-input';
+          input.style.width = Math.min(Math.max(part.length * 8, 90), 380) + 'px';
+          input.placeholder = '...';
+          frag.appendChild(input);
+        } else if (part) {
+          frag.appendChild(document.createTextNode(part));
+        }
+      });
+      node.parentNode.replaceChild(frag, node);
+    } else if (
+      node.nodeType === Node.ELEMENT_NODE &&
+      !['SCRIPT', 'STYLE', 'CODE', 'INPUT', 'TEXTAREA', 'SELECT'].includes(node.tagName)
+    ) {
+      Array.from(node.childNodes).forEach(replaceUnderscoresInNode);
+    }
+  }
+
+  var contentRoot =
+    document.querySelector('.main-content-wrap') ||
+    document.querySelector('.page-content') ||
+    document.querySelector('main') ||
+    document.body;
+
+  replaceUnderscoresInNode(contentRoot);
+
+  // ── 4. Aggiungi campo note dopo ogni separatore <hr> ────────────────────
+  var hrs = Array.from(contentRoot.querySelectorAll('hr'));
+  hrs.forEach(function (hr) {
+    var wrap     = document.createElement('div');
+    wrap.className = 'survey-notes-wrap';
+    var label    = document.createElement('span');
+    label.className = 'survey-notes-label';
+    label.textContent = '📝 Note per questa sezione';
+    var textarea = document.createElement('textarea');
+    textarea.className = 'survey-notes-area';
+    textarea.placeholder = 'Aggiungi note o risposte libere...';
+    wrap.appendChild(label);
+    wrap.appendChild(textarea);
+    // inserisci PRIMA dell'<hr> così rimane nella sezione precedente
+    hr.parentNode.insertBefore(wrap, hr);
+  });
+
+})();
+
+// ── PDF generation ───────────────────────────────────────────────────────────
+function surveyDownloadPDF() {
+  if (typeof html2pdf === 'undefined') {
+    alert('La libreria PDF non è ancora caricata. Riprovare tra un secondo.');
+    return;
+  }
+
+  var btn = document.getElementById('survey-pdf-btn');
+  btn.disabled = true;
+  btn.innerHTML = '⏳&nbsp; Generazione PDF...';
+
+  var element =
+    document.querySelector('.main-content-wrap') ||
+    document.querySelector('.page-content') ||
+    document.querySelector('main') ||
+    document.body;
+
+  // Costruisci il nome file dal titolo della pagina
+  var rawTitle = document.title || 'survey';
+  var cleanTitle = rawTitle
+    .replace(/\s*[—–|·].*$/, '')   // rimuove sottotitolo dopo separatore
+    .trim()
+    .toLowerCase()
+    .replace(/[àáâãäå]/g, 'a')
+    .replace(/[èéêë]/g, 'e')
+    .replace(/[ìíîï]/g, 'i')
+    .replace(/[òóôõö]/g, 'o')
+    .replace(/[ùúûü]/g, 'u')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+  var filename = cleanTitle + '.pdf';
+
+  var opt = {
+    margin:     [12, 10, 14, 10],
+    filename:   filename,
+    image:      { type: 'jpeg', quality: 0.97 },
+    html2canvas: {
+      scale:      2,
+      useCORS:    true,
+      logging:    false,
+      allowTaint: false,
+      scrollX:    0,
+      scrollY:    -window.scrollY
+    },
+    jsPDF: {
+      unit:        'mm',
+      format:      'a4',
+      orientation: 'portrait'
+    },
+    pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+
+  html2pdf()
+    .set(opt)
+    .from(element)
+    .save()
+    .then(function () {
+      btn.disabled = false;
+      btn.innerHTML = '⬇&nbsp; Scarica PDF compilato';
+    })
+    .catch(function (err) {
+      console.error('Errore generazione PDF:', err);
+      btn.disabled = false;
+      btn.innerHTML = '⬇&nbsp; Scarica PDF compilato';
+    });
+}
+</script>

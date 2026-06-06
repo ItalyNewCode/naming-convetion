@@ -1,6 +1,7 @@
 ---
 title: Onboarding Community
 nav_order: 50
+has_pdf_export: true
 ---
 
 # Discovery Questions — Software Community Onboarding
@@ -180,3 +181,5 @@ Checklist di domande da porre a un'azienda con sviluppo software interno che vuo
 ---
 
 *Documento per onboarding community — personalizzare con domande specifiche al dominio verticale dell'azienda.*
+
+{% include survey-pdf.html %}
